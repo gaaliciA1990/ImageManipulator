@@ -1,4 +1,6 @@
-package com.img_processor.ImgManipulators
+package com.img_processor.imageProcessing
+
+import java.awt.image.BufferedImage
 
 /**
  * Author: Alicia Garcia
@@ -7,5 +9,5 @@ package com.img_processor.ImgManipulators
  * Class for processing images (rotate, filters, resize) based on the sketch library
  *
  **/
-class ProcessImage {
+class ProcessImage(val image: BufferedImage) {
 }
