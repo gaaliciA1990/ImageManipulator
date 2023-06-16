@@ -1,9 +1,6 @@
 package com.img_processor.plugins
 
 import ConstantAPI
-import com.sksamuel.scrimage.ImageParseException
-import com.sksamuel.scrimage.ImmutableImage
-import com.sksamuel.scrimage.nio.JpegWriter
 import io.ktor.server.routing.*
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -17,11 +14,18 @@ import io.ktor.server.request.*
 fun Application.configureRouting() {
     val controller = ApiController()
 
-    // Starting point for a Ktor app:
+    /**
+     * Starting point for a Ktor app:
+     */
     routing {
-        //set default route mapping
+        /**
+         * set default route mapping
+         */
         route(ConstantAPI.API_PATH) {
-            // call to manipulate an image with any/all options
+
+            /**
+             * call to manipulate an image with any/all options
+             */
             post(ConstantAPI.API_COMBO) {
                 // upload the image to be manipulated
                 val uploadedImage = getByteArray(call)
@@ -41,47 +45,51 @@ fun Application.configureRouting() {
                     return@post
                 }
 
-                val validRequest = controller.combinationImage(commands, uploadedImage)
+                val returnedImage = controller.combinationImage(commands, uploadedImage)
 
                 // verify the commands are valid, return bad request if not
-                if (validRequest == null) {
+                if (returnedImage == null) {
                     call.response.status(HttpStatusCode.BadRequest)
                     return@post
                 } else {
-                    // return manipulated image as a byte
-                    val returnedImage = convertToByteArray(validRequest)
+                    // return processed image
                     call.respondBytes(returnedImage)
                 }
             }
 
-            // access call for rotate any degree
+            /**
+             * access call for rotate any degree
+             */
             post(ConstantAPI.API_ROTATE) {
                 // upload the image to be manipulated
-                val byteArray = getByteArray(call)
+                val uploadedImage = getByteArray(call)
 
                 // store the passed value for degrees and convert to an integer
                 // If unable to convert to int, set to null
                 val degree = call.request.queryParameters["degrees"]?.toIntOrNull()
 
                 // verify we have a valid image
-                if (byteArray == null) {
+                if (uploadedImage == null) {
                     call.response.status(HttpStatusCode.BadRequest)
                     return@post
                 }
 
                 // call api controller to manipulate the image if applicable
                 if (degree != null) {
-                    // rotate the image by degrees and convert returned image back to bytes
-                    val returnedImage = controller.rotateDegreesImage(degree, byteArray)
-                    call.respondBytes(returnedImage)
+                    // rotate the image by degrees and return rotated image
+                    call.respondBytes(
+                        controller.rotateDegreesImage(degree, uploadedImage)
+                    )
                 } else {
                     call.response.status(HttpStatusCode.BadRequest)
                 }
             }
 
-            // access call for rotating left or right 90degrees
+            /**
+             * access call for rotating left or right 90degrees
+             */
             post(ConstantAPI.API_ROTATE90) {
-                val uploadedImage = convertToImmutableImage(call)
+                val uploadedImage = getByteArray(call)
 
                 // parameters for rotation left or right
                 val direction = call.request.queryParameters["direction"]
@@ -94,32 +102,38 @@ fun Application.configureRouting() {
 
                 // call api controller to rotate the image left or right
                 if (!direction.isNullOrBlank()) {
-                    // rotate the image left or right and convert rotated image to byte array
-                    val returnedImage = convertToByteArray(controller.rotateImage(direction, uploadedImage))
-                    call.respondBytes(returnedImage)
+                    // rotate the image left or right and return rotated image
+                    call.respondBytes(
+                        controller.rotateImage(direction, uploadedImage)
+                    )
                 } else {
                     call.response.status(HttpStatusCode.BadRequest)
                 }
             }
 
-            // access call for adding grayscale filter to image
+            /**
+             * access call for adding grayscale filter to image
+             */
             post(ConstantAPI.API_GRAY) {
-                val uploadedImage = convertToImmutableImage(call)
+                val uploadedImage = getByteArray(call)
 
                 // verify we have a valid image
                 if (uploadedImage == null) {
                     call.response.status(HttpStatusCode.BadRequest)
                     return@post
                 }
-                // call controller to add grayscaled filter and convert filtered image to byte array
-                val returnedImage = convertToByteArray(controller.grayscaleImage(uploadedImage))
-                call.respondBytes(returnedImage)
+                // call controller to add grayscale filter and return filtered image
+                call.respondBytes(
+                    controller.grayscaleImage(uploadedImage)
+                )
             }
 
-            // access call for resize image based on width and height values, optionally
-            // based on pixel size
+            /**
+             * access call for resize image based on width and height values, optionally
+             * based on pixel size
+             */
             post(ConstantAPI.API_RESIZE) {
-                val uploadedImage = convertToImmutableImage(call)
+                val uploadedImage = getByteArray(call)
 
                 // store parameter for width and height as integers
                 val width = call.request.queryParameters["width"]?.toIntOrNull()
@@ -135,15 +149,18 @@ fun Application.configureRouting() {
                 if (width == null && height == null) {
                     call.response.status(HttpStatusCode.BadRequest)
                 } else {
-                    // call api controller to resize image and convert image to bytes
-                    val returnedImage = convertToByteArray(controller.resizeImage(width, height, uploadedImage))
-                    call.respondBytes(returnedImage)
+                    // call api controller to resize image and return resized image
+                    call.respondBytes(
+                        controller.resizeImage(width, height, uploadedImage)
+                    )
                 }
             }
 
-            // access call for converting image to a thumbnail size
+            /**
+             * access call for converting image to a thumbnail size
+             */
             post(ConstantAPI.API_THUMBNAIL) {
-                val uploadedImage = convertToImmutableImage(call)
+                val uploadedImage = getByteArray(call)
 
                 // verify we have a valid image
                 if (uploadedImage == null) {
@@ -152,13 +169,16 @@ fun Application.configureRouting() {
                 }
 
                 // call controller to convert image to thumbnail and convert image to bytes
-                val returnedImage = convertToByteArray(controller.thumbnailImage(uploadedImage))
-                call.respondBytes(returnedImage)
+                call.respondBytes(
+                    controller.thumbnailImage(uploadedImage)
+                )
             }
 
-            // access call for flipping image
+            /**
+             * access call for flipping image
+             */
             post(ConstantAPI.API_FLIP) {
-                val uploadedImage = convertToImmutableImage(call)
+                val uploadedImage = getByteArray(call)
 
                 val direction = call.request.queryParameters["direction"]
 
@@ -171,8 +191,9 @@ fun Application.configureRouting() {
                 // flip the image based on direction
                 if (!direction.isNullOrBlank()) {
                     // call controller to flip image and convert image to bytes
-                    val returnedImage = convertToByteArray(controller.flipImage(direction, uploadedImage))
-                    call.respondBytes(returnedImage)
+                    call.respondBytes(
+                        controller.flipImage(direction, uploadedImage)
+                    )
                 } else {
                     call.response.status(HttpStatusCode.BadRequest)
                 }
@@ -180,7 +201,6 @@ fun Application.configureRouting() {
         }
     }
 }
-
 
 
 suspend fun getByteArray(call: ApplicationCall): ByteArray {
