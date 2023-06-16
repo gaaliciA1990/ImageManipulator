@@ -1,9 +1,9 @@
-package io.github.reugn.sketch
+package com.img_processor.imagelibrary.sketch
 
-import io.github.reugn.sketch.filter.*
-import io.github.reugn.sketch.util.SketchIO
+import com.img_processor.imagelibrary.sketch.filter.*
+import com.img_processor.imagelibrary.sketch.util.SketchIO
 import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.Test
+import org.junit.Test
 import java.awt.Color
 import kotlin.test.assertTrue
 

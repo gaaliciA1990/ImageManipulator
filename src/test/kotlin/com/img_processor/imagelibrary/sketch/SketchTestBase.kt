@@ -1,4 +1,4 @@
-package io.github.reugn.sketch
+package com.img_processor.imagelibrary.sketch
 
 import java.awt.Color
 import java.awt.Graphics2D

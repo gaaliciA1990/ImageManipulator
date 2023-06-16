@@ -1,10 +1,10 @@
-package io.github.reugn.sketch
+package com.img_processor.imagelibrary.sketch
 
-import io.github.reugn.sketch.geom.Position
-import io.github.reugn.sketch.geom.Rectangle
-import io.github.reugn.sketch.util.SketchIO
+import com.img_processor.imagelibrary.sketch.geom.Position
+import com.img_processor.imagelibrary.sketch.geom.Rectangle
+import com.img_processor.imagelibrary.sketch.util.SketchIO
 import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.Test
+import org.junit.Test
 import kotlin.test.assertTrue
 
 class SketchCropTest : SketchTestBase() {
