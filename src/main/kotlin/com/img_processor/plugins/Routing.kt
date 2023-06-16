@@ -24,7 +24,7 @@ fun Application.configureRouting() {
             // call to manipulate an image with any/all options
             post(ConstantAPI.API_COMBO) {
                 // upload the image to be manipulated
-                val uploadedImage = convertToImmutableImage(call)
+                val uploadedImage = getByteArray(call)
 
                 // verify we have a valid image
                 if (uploadedImage == null) {
@@ -57,14 +57,14 @@ fun Application.configureRouting() {
             // access call for rotate any degree
             post(ConstantAPI.API_ROTATE) {
                 // upload the image to be manipulated
-                val uploadedImage = convertToImmutableImage(call)
+                val byteArray = getByteArray(call)
 
                 // store the passed value for degrees and convert to an integer
                 // If unable to convert to int, set to null
                 val degree = call.request.queryParameters["degrees"]?.toIntOrNull()
 
                 // verify we have a valid image
-                if (uploadedImage == null) {
+                if (byteArray == null) {
                     call.response.status(HttpStatusCode.BadRequest)
                     return@post
                 }
@@ -72,7 +72,7 @@ fun Application.configureRouting() {
                 // call api controller to manipulate the image if applicable
                 if (degree != null) {
                     // rotate the image by degrees and convert returned image back to bytes
-                    val returnedImage = convertToByteArray(controller.rotateDegreesImage(degree, uploadedImage))
+                    val returnedImage = controller.rotateDegreesImage(degree, byteArray)
                     call.respondBytes(returnedImage)
                 } else {
                     call.response.status(HttpStatusCode.BadRequest)
@@ -181,12 +181,9 @@ fun Application.configureRouting() {
     }
 }
 
-/**
- * Co-routine to upload the image for manipulation
- * We do not store the image since this would raise security issues,
- * and I have no need for their images
- */
-suspend fun convertToImmutableImage(call: ApplicationCall): ImmutableImage? {
+
+
+suspend fun getByteArray(call: ApplicationCall): ByteArray {
     // channel to read the image bytes from
     val image = call.receiveChannel()
 
@@ -198,20 +195,5 @@ suspend fun convertToImmutableImage(call: ApplicationCall): ImmutableImage? {
         byteArray += image.readByte()
     }
 
-    // return an immutable image, only if it's a valid image
-    return try {
-        ImmutableImage.loader().fromBytes(byteArray)
-    } catch (exception: ImageParseException) {
-        null
-    }
-}
-
-/**
- * Convert [image] to a bytearray for rendering back to download
- *
- * Returns a ByteArray
- */
-fun convertToByteArray(image: ImmutableImage): ByteArray {
-
-    return image.bytes(JpegWriter.Default)
+    return byteArray
 }

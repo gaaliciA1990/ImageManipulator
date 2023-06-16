@@ -1,6 +1,6 @@
 package com.img_processor.plugins
 
-import com.img_processor.ImgManipulators.ManipulateImage
+import com.img_processor.imageProcessing.ManipulateImage
 import com.sksamuel.scrimage.ImmutableImage
 
 
@@ -9,7 +9,7 @@ import com.sksamuel.scrimage.ImmutableImage
  * Version: 1.0
  * Date: 2/27/2022 21:05
  *
- * API controller class for handling all of the manipulation requests passed
+ * API controller class for handling all the image processing requests passed
  * through the parameters to a given [img].
  */
 
@@ -17,13 +17,13 @@ class ApiController {
     /**
      * Controller for handling multiple manipulation commands on an [image]. Called from the Routing.kt file
      *
-     * Returns an ImmutableImage, or null if invalid command found
+     * Returns a ByteArray, or null if invalid command found
      */
-    fun combinationImage(commands: List<String>, img: ImmutableImage): ImmutableImage? {
+    fun combinationImage(commands: List<String>, img: ByteArray): ByteArray? {
         var image = img
 
         // iterate through list of commands
-        commands?.forEach { command ->
+        commands.forEach { command ->
             // delimit the strings by the equal sign and store in new list
             val manipulate = command.split("=")
             // check the first value of the new list and do the correct manipulations
@@ -31,22 +31,28 @@ class ApiController {
                 "degree" -> {
                     image = rotateDegreesImage(manipulate[1].toInt(), image)
                 }
+
                 "grayscale" -> {
                     image = grayscaleImage(image)
                 }
+
                 "rotate" -> {
                     image = rotateImage(manipulate[1], image)
                 }
+
                 "flip" -> {
                     image = flipImage(manipulate[1], image)
                 }
+
                 "resize" -> {
                     val dimensions = manipulate[1].split("*")
                     image = resizeImage (dimensions[0].toInt(), dimensions[1].toInt(), image)
                 }
+
                 "thumbnail" -> {
                     image = thumbnailImage(image)
                 }
+
                 else -> {
                     return null
                 }
@@ -58,9 +64,9 @@ class ApiController {
     /**
      * controller for rotating an [image] by degrees. Called from the Routing.kt file
      *
-     * Returns an ImmutableImage
+     * Returns a ByteArray
      */
-    fun rotateDegreesImage(degree: Int, img: ImmutableImage): ImmutableImage {
+    fun rotateDegreesImage(degree: Int, img: ByteArray): ByteArray {
         val image = ManipulateImage(img)
 
         // rotate the image based on the degrees
@@ -70,9 +76,9 @@ class ApiController {
     /**
      * Controller for rotating an image left or right 90 degrees. Called from Routing.kt file
      *
-     * Returns an ImmutableImage
+     * Returns a ByteArray
      */
-    fun rotateImage(direction: String, img: ImmutableImage): ImmutableImage {
+    fun rotateImage(direction: String, img: ByteArray): ByteArray {
         // rotate image
         val image = ManipulateImage(img)
         val rotatedImage = image.rotate90LeftOrRight(direction)
@@ -83,9 +89,9 @@ class ApiController {
     /**
      * Controller for adding grayscale to an [image]. Called from Routing.kt.
      *
-     * Returns an ImmutableImage
+     * Returns a ByteArray
      */
-    fun grayscaleImage(img: ImmutableImage): ImmutableImage {
+    fun grayscaleImage(img: ByteArray): ByteArray {
         // filter the image to grayscale
         val image = ManipulateImage(img)
         return image.convertToGrayscale()
@@ -94,9 +100,9 @@ class ApiController {
     /**
      * Controller for resizing an [image] based on width and height. Called from Routing.kt
      *
-     * Returns ImmutableImage
+     * Returns a ByteArray
      */
-    fun resizeImage(width: Int?, height: Int?, img: ImmutableImage): ImmutableImage {
+    fun resizeImage(width: Int?, height: Int?, img: ByteArray): ByteArray {
         val image = ManipulateImage(img)
 
         if (width != null && height != null) {
@@ -113,9 +119,9 @@ class ApiController {
     /**
      * Controller for creating a thumbnail size [image]. Called from Routing.kt
      *
-     * Returns ImmutableImage
+     * Returns a ByteArray
      */
-    fun thumbnailImage(img: ImmutableImage): ImmutableImage {
+    fun thumbnailImage(img: ByteArray): ByteArray {
         val image = ManipulateImage(img)
         return image.resizeImageToThumbnail()
     }
@@ -123,9 +129,9 @@ class ApiController {
     /**
      * Controller for flipping the [image] horizontally or vertically. Called from Routing.kt
      *
-     * Return ImmutableImage
+     * Returns a ByteArray
      */
-    fun flipImage(direction: String, img: ImmutableImage): ImmutableImage {
+    fun flipImage(direction: String, img: ByteArray): ByteArray {
         val image = ManipulateImage(img)
 
         // flip the image
