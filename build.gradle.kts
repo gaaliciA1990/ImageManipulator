@@ -4,11 +4,15 @@ val logback_version: String by project
 
 plugins {
     application
-    kotlin("jvm") version "1.6.10"
+    kotlin("jvm") version "1.8.22"
+    id("io.ktor.plugin") version "2.3.1"
+    id("io.gitlab.arturbosch.detekt") version "1.23.0"
+    jacoco
 }
 
 group = "com.img_processor"
 version = "0.0.1"
+
 application {
     mainClass.set("com.img_processor.ApplicationKt")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=true") // enables dev mode
@@ -17,15 +21,40 @@ application {
 
 repositories {
     mavenCentral()
-    maven { url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap") }
 }
 
 dependencies {
-    implementation("io.ktor:ktor-server-core-jvm:$ktor_version")
-    implementation("io.ktor:ktor-server-netty-jvm:$ktor_version")
+    implementation("io.ktor:ktor-server-core")
+    implementation("io.ktor:ktor-server-netty")
     implementation("ch.qos.logback:logback-classic:$logback_version")
-    testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
+    implementation("io.github.reugn:sketch:0.1.0")
+    // potentially delete
     implementation("com.sksamuel.scrimage:scrimage-core:4.0.24")
     implementation("com.sksamuel.scrimage:scrimage-filters:4.0.24")
+
+    testImplementation(kotlin("test"))
+    testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
+    testImplementation("io.mockk:mockk:1.13.4")
+
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:_")
+}
+
+detekt {
+    autoCorrect = true
+}
+
+tasks.jacocoTestReport {
+    reports {
+        xml.required.set(true)
+    }
+}
+
+tasks.test {
+    finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test) // tests are required to run before generating the report
 }
