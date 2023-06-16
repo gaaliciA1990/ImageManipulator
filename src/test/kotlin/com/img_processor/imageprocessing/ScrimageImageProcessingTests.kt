@@ -1,16 +1,14 @@
-package com.img_processor.ImgManipulators
+package com.img_processor.imageprocessing
 
-import com.sksamuel.scrimage.ImmutableImage
 import com.sksamuel.scrimage.angles.Degrees
 import io.mockk.mockk
 import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.unmockkAll
-import io.mockk.verify
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
-import kotlin.test.assertEquals
+
 /**
  * Author: Alicia Garcia
  * Version: 1.0
@@ -18,10 +16,11 @@ import kotlin.test.assertEquals
  */
 
 class ManipulateImageTest {
-    lateinit var mockImg: ImmutableImage
+    val testImage = "resources/images/testImg1.png"
+
     @BeforeTest
     fun beforeEach() {
-        mockImg = mockk()
+
     }
 
     @AfterTest
@@ -31,17 +30,18 @@ class ManipulateImageTest {
     }
 
     @Test
-    fun `rotateImage_returns_image_rotated_by_X_degrees`() {
+    fun `resizeImage_returns_new_image_based_on_width_and_height`() {
         // SET UP
-        val manipulateImage = ManipulateImage(mockImg)
-        val degree: Int = 15
+        val scrimageImageProcessing = ScrimageImageProcessing(testImage)
+        val width = 1280
+        val height = 720
 
-        every { mockImg.rotate(any<Degrees>()) } returns mockk()
+        every { mockImg. } returns mockk()
 
         // DO
-        val returnedImage =  manipulateImage.rotateImage(degree)
+        val returnedImage =  scrimageImageProcessing.rotateImage(degree)
 
         // ASSERT - since we can't see the image, we will verify a method was called instead to rotate the image
-        verify(exactly = 1) {mockImg.rotate(Degrees(degree))}
+        // verify(exactly = 1) {mockImg.rotate(Degrees(degree))}
     }
 }
