@@ -1,8 +1,6 @@
 package com.img_processor.imageprocessing
 
 import com.sksamuel.scrimage.ImmutableImage
-import com.sksamuel.scrimage.angles.Degrees
-import com.sksamuel.scrimage.filter.GrayscaleFilter
 import com.sksamuel.scrimage.nio.JpegWriter
 
 
@@ -16,7 +14,7 @@ import com.sksamuel.scrimage.nio.JpegWriter
  * to radians.
  */
 
-class ManipulateImage(val image: ByteArray) {
+class ScrimageImageProcessing(val image: ByteArray) {
 
     val immutableImage = convertToImmutableImage(image)
 
@@ -100,7 +98,7 @@ class ManipulateImage(val image: ByteArray) {
 
     /**
      * Helper function to convert [image] to ImmutableImage to utilize
-     * the Sketch library
+     * the Scrimage library
      */
     private fun convertToImmutableImage(image: ByteArray): ImmutableImage {
         // return an immutable image, only if it's a valid image

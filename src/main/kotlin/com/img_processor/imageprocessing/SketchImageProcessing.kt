@@ -14,7 +14,7 @@ import javax.imageio.ImageIO
  * Class for processing images (rotate, filters, resize) based on the sketch library
  *
  **/
-class ProcessImage(val image: ByteArray) {
+class SketchImageProcessing(val image: ByteArray) {
     // create image as bufferedimage
     val sketchImage = SketchImage(getBufferedImage(image))
 

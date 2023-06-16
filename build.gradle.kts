@@ -26,8 +26,8 @@ repositories {
 dependencies {
     implementation("io.ktor:ktor-server-core")
     implementation("io.ktor:ktor-server-netty")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
     implementation("ch.qos.logback:logback-classic:$logback_version")
-    implementation("io.github.reugn:sketch:0.1.0")
     // potentially delete
     implementation("com.sksamuel.scrimage:scrimage-core:4.0.24")
     implementation("com.sksamuel.scrimage:scrimage-filters:4.0.24")

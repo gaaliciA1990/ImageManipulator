@@ -1,10 +1,11 @@
 package com.img_processor.imageprocessing
 
-import com.sksamuel.scrimage.angles.Degrees
 import io.mockk.mockk
 import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.unmockkAll
+import java.nio.file.Files
+import java.nio.file.Paths
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -15,12 +16,17 @@ import kotlin.test.Test
  * Date: 2/27/2022 22:46
  */
 
-class ManipulateImageTest {
-    val testImage = "resources/images/testImg1.png"
+class ScrimageImageProcessingTests {
+    val test1 = "images/testImg1.png"
+    val test2 = "images/testImg2.png"
+
+    lateinit var byteImg1: ByteArray
+    lateinit var byteImg2: ByteArray
 
     @BeforeTest
     fun beforeEach() {
-
+        byteImg1 = Files.readAllBytes(Paths.get(test1))
+        byteImg2 = Files.readAllBytes(Paths.get(test2))
     }
 
     @AfterTest
@@ -29,19 +35,4 @@ class ManipulateImageTest {
         unmockkAll()
     }
 
-    @Test
-    fun `resizeImage_returns_new_image_based_on_width_and_height`() {
-        // SET UP
-        val scrimageImageProcessing = ScrimageImageProcessing(testImage)
-        val width = 1280
-        val height = 720
-
-        every { mockImg. } returns mockk()
-
-        // DO
-        val returnedImage =  scrimageImageProcessing.rotateImage(degree)
-
-        // ASSERT - since we can't see the image, we will verify a method was called instead to rotate the image
-        // verify(exactly = 1) {mockImg.rotate(Degrees(degree))}
-    }
 }

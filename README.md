@@ -8,10 +8,12 @@ A simple Image Processor API that accepts a byte array image and can transform t
 - Resize an image by width and/or height based on pixel size
 - Create a 160x108 pixel thumbnail
 
-## Tools and Language
-The program is written in Kotlin and is using the Ktor Framework with the Scrimage Library to perform image transformations. Due to the limitations with degree rotation, excluding 90 degree, a new library is being added in the future to handle this operation more easily. 
+## Tools and Libraries
+Ktor Framework
+[Sketch Library](https://github.com/reugn/sketch/tree/main) and the 
+[Scrimage Library](https://github.com/sksamuel/scrimage) to process images in different ways. 
 
 
 ## API Documentation
 Full API documentation for how to perform the actions by calling the API can be found here:
-https://github.com/gaaliciA1990/ImageProcessor/blob/master/ImageProcessorAPIDocumentation
+https://github.com/gaaliciA1990/ImageManipulator/blob/main/ImageProcessorAPIDocumentation

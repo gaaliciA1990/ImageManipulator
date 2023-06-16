@@ -1,8 +1,7 @@
 package com.img_processor.plugins
 
-import com.img_processor.imageProcessing.ManipulateImage
-import com.sksamuel.scrimage.ImmutableImage
-
+import com.img_processor.imageprocessing.SketchImageProcessing
+import com.img_processor.imageprocessing.ScrimageImageProcessing
 
 /**
  * Author: Alicia Garcia
@@ -19,7 +18,7 @@ class ApiController {
      *
      * Returns a ByteArray, or null if invalid command found
      */
-    fun combinationImage(commands: List<String>, img: ByteArray): ByteArray? {
+    suspend fun combinationImage(commands: List<String>, img: ByteArray): ByteArray? {
         var image = img
 
         // iterate through list of commands
@@ -66,8 +65,8 @@ class ApiController {
      *
      * Returns a ByteArray
      */
-    fun rotateDegreesImage(degree: Int, img: ByteArray): ByteArray {
-        val image = ManipulateImage(img)
+    suspend fun rotateDegreesImage(degree: Int, img: ByteArray): ByteArray {
+        val image = SketchImageProcessing(img)
 
         // rotate the image based on the degrees
         return image.rotateImage(degree)
@@ -78,9 +77,9 @@ class ApiController {
      *
      * Returns a ByteArray
      */
-    fun rotateImage(direction: String, img: ByteArray): ByteArray {
+    suspend fun rotateImage(direction: String, img: ByteArray): ByteArray {
         // rotate image
-        val image = ManipulateImage(img)
+        val image = SketchImageProcessing(img)
         val rotatedImage = image.rotate90LeftOrRight(direction)
 
         return (rotatedImage)
@@ -91,19 +90,19 @@ class ApiController {
      *
      * Returns a ByteArray
      */
-    fun grayscaleImage(img: ByteArray): ByteArray {
+    suspend fun grayscaleImage(img: ByteArray): ByteArray {
         // filter the image to grayscale
-        val image = ManipulateImage(img)
-        return image.convertToGrayscale()
+        val image = SketchImageProcessing(img)
+        return image.toGrayscale()
     }
 
     /**
-     * Controller for resizing an [image] based on width and height. Called from Routing.kt
+     * Resizes an [image] based on width and height. Called from Routing.kt
      *
      * Returns a ByteArray
      */
-    fun resizeImage(width: Int?, height: Int?, img: ByteArray): ByteArray {
-        val image = ManipulateImage(img)
+    suspend fun resizeImage(width: Int?, height: Int?, img: ByteArray): ByteArray {
+        val image = ScrimageImageProcessing(img)
 
         if (width != null && height != null) {
             return image.resizeImage(width, height)
@@ -121,8 +120,8 @@ class ApiController {
      *
      * Returns a ByteArray
      */
-    fun thumbnailImage(img: ByteArray): ByteArray {
-        val image = ManipulateImage(img)
+    suspend fun thumbnailImage(img: ByteArray): ByteArray {
+        val image = ScrimageImageProcessing(img)
         return image.resizeImageToThumbnail()
     }
 
@@ -131,8 +130,8 @@ class ApiController {
      *
      * Returns a ByteArray
      */
-    fun flipImage(direction: String, img: ByteArray): ByteArray {
-        val image = ManipulateImage(img)
+    suspend fun flipImage(direction: String, img: ByteArray): ByteArray {
+        val image = ScrimageImageProcessing(img)
 
         // flip the image
         return image.flipImage(direction)
