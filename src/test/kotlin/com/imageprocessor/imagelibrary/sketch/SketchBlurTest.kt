@@ -14,7 +14,7 @@ class SketchBlurTest : SketchTestBase() {
         val orig = SketchIO.load(sourceImagePath)
         assertTrue {
             SketchIO.save(
-                orig.blur(10),S
+                orig.blur(10),
                 destImagePath("hummingbird_blur_full.jpg")
             )
         }
