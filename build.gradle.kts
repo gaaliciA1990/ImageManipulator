@@ -38,11 +38,16 @@ dependencies {
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
     testImplementation("io.mockk:mockk:1.13.4")
 
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:_")
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.22.0")
 }
 
 detekt {
     autoCorrect = true
+}
+
+tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+    // include("**/special/package/**") // only analyze a sub package inside src/main/kotlin
+    exclude("**/com/imageprocessor/imagelibrary/**") // but exclude the library for Sketch package
 }
 
 tasks.jacocoTestReport {

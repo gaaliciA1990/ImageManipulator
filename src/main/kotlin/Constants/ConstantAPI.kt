@@ -6,7 +6,7 @@
  * Constants for API paths and details
  */
 
-object  ConstantAPI {
+object ConstantAPI {
     const val PORT = 8080
     const val HOST = "0.0.0.0"
 
@@ -18,5 +18,4 @@ object  ConstantAPI {
     const val API_THUMBNAIL = "thumbnail"
     const val API_FLIP = "flip"
     const val API_COMBO = "combination"
-
 }
