@@ -1,8 +1,13 @@
-# Image Processor
+# Project Build Status
+[![Gradle Build](https://github.com/gaaliciA1990/ImageManipulator/blob/main/.github/workflows/build.yml/badge.svg)](https://github.com/gaaliciA1990/ImageManipulator/blob/main/.github/workflows/build.yml)
 
-A simple Image Processor API that accepts a byte array image and can transform the image by any combination of the following using a stateless design: 
+[![Code Coverage](https://github.com/gaaliciA1990/ImageManipulator/blob/main/.github/badges/jacoco.svg)](https://github.com/gaaliciA1990/ImageManipulator/blob/main/.github/workflows/jacoco.yml)
+
+#Image Processor
+
+A simple Image Processor API that accepts a byte array image and can process the image as follows: 
 - Rotate 90 degrees left or right
-- Rotate any degrees (still being worked on as the image is distorted out of the frame)
+- Rotate any degrees
 - Flip horizontally or vertically
 - Add a grayscale filter
 - Resize an image by width and/or height based on pixel size
@@ -15,5 +20,4 @@ Ktor Framework
 
 
 ## API Documentation
-Full API documentation for how to perform the actions by calling the API can be found here:
-https://github.com/gaaliciA1990/ImageManipulator/blob/main/ImageProcessorAPIDocumentation
+Full [API documentation](https://github.com/gaaliciA1990/ImageManipulator/blob/main/ImageProcessorAPIDocumentation) for how to perform the actions by calling the API can be found here:
