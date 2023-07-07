@@ -57,7 +57,7 @@ tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
 
 tasks.jacocoTestReport {
     reports {
-        xml.required.set(true)
+        csv.required.set(true)
     }
 }
 
