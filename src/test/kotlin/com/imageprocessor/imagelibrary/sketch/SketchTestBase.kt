@@ -4,11 +4,13 @@ import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.Rectangle
 import java.awt.image.BufferedImage
+import java.io.File
+import kotlin.io.path.createTempDirectory
 
 open class SketchTestBase {
 
     companion object {
-        protected const val sourceImageName = "hummingbird_original.jpg"
+        protected const val sourceImageName = "images/hummingbird_original.jpg"
     }
 
     protected val sourceImagePath by lazy { sourceImagePath() }

@@ -11,7 +11,7 @@ import javax.imageio.ImageIO
  * Author: Alicia Garcia
  * Version: 1.0
  *
- * Class for processing images (rotate, filters, resize) based on the sketch library
+ * Class for processing images to add filters or rotate based on the sketch library
  *
  **/
 class SketchImageProcessing(val image: ByteArray) {

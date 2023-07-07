@@ -8,9 +8,7 @@ import com.sksamuel.scrimage.nio.JpegWriter
  * Version: 1.0
  * Date: 2/12/2022 18:28
  *
- * Class for rotating an image by ## degrees. The rotate function uses
- * radians for step rotations, so we have a helper method for converting the degrees
- * to radians.
+ * Class for processing images to resize or flip horizontally/vertically
  */
 
 class ScrimageImageProcessing(val image: ByteArray) {

@@ -8,5 +8,5 @@ enum class ImageFormat {
     JPEG,
     PNG,
     GIF,
-    BMP
+    BMP,
 }
