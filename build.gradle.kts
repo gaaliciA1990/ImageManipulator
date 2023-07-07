@@ -10,6 +10,11 @@ plugins {
     jacoco
 }
 
+kotlin {
+    jvmToolchain(17)
+}
+
+
 group = "com.img_processor"
 version = "0.0.1"
 
