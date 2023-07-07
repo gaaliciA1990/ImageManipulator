@@ -1,12 +1,15 @@
 package com.imageprocessor.plugins
 
 import ConstantAPI
+import ConstantAPI.INVALID_IMAGE
+import ConstantAPI.INVALID_PARAM
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.application.call
 import io.ktor.server.request.receiveChannel
 import io.ktor.server.response.respondBytes
+import io.ktor.server.response.respondText
 import io.ktor.server.routing.post
 import io.ktor.server.routing.route
 import io.ktor.server.routing.routing
@@ -38,7 +41,9 @@ fun Application.configureRouting() {
 
                 // verify we have a valid image
                 if (uploadedImage == null) {
-                    call.response.status(HttpStatusCode.BadRequest)
+                    call.respondText(status = HttpStatusCode.BadRequest) {
+                        INVALID_IMAGE
+                    }
                     return@post
                 }
 
@@ -47,7 +52,9 @@ fun Application.configureRouting() {
 
                 // check our commands list is not null.
                 if (commands == null) {
-                    call.response.status(HttpStatusCode.BadRequest)
+                    call.respondText(status = HttpStatusCode.BadRequest) {
+                        "Missing Commands: No commands found to process image"
+                    }
                     return@post
                 }
 
@@ -55,7 +62,9 @@ fun Application.configureRouting() {
 
                 // verify the commands are valid, return bad request if not
                 if (returnedImage == null) {
-                    call.response.status(HttpStatusCode.BadRequest)
+                    call.respondText(status = HttpStatusCode.BadRequest) {
+                        "Invalid Command Found: Please check your command parameters match our requirements"
+                    }
                     return@post
                 } else {
                     // return processed image
@@ -72,11 +81,13 @@ fun Application.configureRouting() {
 
                 // store the passed value for degrees and convert to an integer
                 // If unable to convert to int, set to null
-                val degree = call.request.queryParameters["degrees"]?.toIntOrNull()
+                val degree = call.request.queryParameters["degree"]?.toIntOrNull()
 
                 // verify we have a valid image
                 if (uploadedImage == null) {
-                    call.response.status(HttpStatusCode.BadRequest)
+                    call.respondText(status = HttpStatusCode.BadRequest) {
+                        INVALID_IMAGE
+                    }
                     return@post
                 }
 
@@ -87,7 +98,9 @@ fun Application.configureRouting() {
                         controller.rotateDegreesImage(degree, uploadedImage)
                     )
                 } else {
-                    call.response.status(HttpStatusCode.BadRequest)
+                    call.respondText(status = HttpStatusCode.BadRequest) {
+                        String.format(INVALID_PARAM, "degree")
+                    }
                 }
             }
 
@@ -102,7 +115,9 @@ fun Application.configureRouting() {
 
                 // verify we have a valid image
                 if (uploadedImage == null) {
-                    call.response.status(HttpStatusCode.BadRequest)
+                    call.respondText(status = HttpStatusCode.BadRequest) {
+                        INVALID_IMAGE
+                    }
                     return@post
                 }
 
@@ -113,7 +128,9 @@ fun Application.configureRouting() {
                         controller.rotateImage(direction, uploadedImage)
                     )
                 } else {
-                    call.response.status(HttpStatusCode.BadRequest)
+                    call.respondText(status = HttpStatusCode.BadRequest) {
+                        String.format(INVALID_PARAM, "direction")
+                    }
                 }
             }
 
@@ -125,7 +142,9 @@ fun Application.configureRouting() {
 
                 // verify we have a valid image
                 if (uploadedImage == null) {
-                    call.response.status(HttpStatusCode.BadRequest)
+                    call.respondText(status = HttpStatusCode.BadRequest) {
+                        INVALID_IMAGE
+                    }
                     return@post
                 }
                 // call controller to add grayscale filter and return filtered image
@@ -147,13 +166,17 @@ fun Application.configureRouting() {
 
                 // verify we have a valid image
                 if (uploadedImage == null) {
-                    call.response.status(HttpStatusCode.BadRequest)
+                    call.respondText(status = HttpStatusCode.BadRequest) {
+                        INVALID_IMAGE
+                    }
                     return@post
                 }
 
                 // resize the image based on width and/or height
                 if (width == null && height == null) {
-                    call.response.status(HttpStatusCode.BadRequest)
+                    call.respondText(status = HttpStatusCode.BadRequest) {
+                        String.format(INVALID_PARAM, "width/height")
+                    }
                 } else {
                     // call api controller to resize image and return resized image
                     call.respondBytes(
@@ -170,7 +193,9 @@ fun Application.configureRouting() {
 
                 // verify we have a valid image
                 if (uploadedImage == null) {
-                    call.response.status(HttpStatusCode.BadRequest)
+                    call.respondText(status = HttpStatusCode.BadRequest) {
+                        INVALID_IMAGE
+                    }
                     return@post
                 }
 
@@ -190,7 +215,9 @@ fun Application.configureRouting() {
 
                 // verify we have a valid image
                 if (uploadedImage == null) {
-                    call.response.status(HttpStatusCode.BadRequest)
+                    call.respondText(status = HttpStatusCode.BadRequest) {
+                        INVALID_IMAGE
+                    }
                     return@post
                 }
 
@@ -201,7 +228,9 @@ fun Application.configureRouting() {
                         controller.flipImage(direction, uploadedImage)
                     )
                 } else {
-                    call.response.status(HttpStatusCode.BadRequest)
+                    call.respondText(status = HttpStatusCode.BadRequest) {
+                        String.format(INVALID_PARAM, "direction")
+                    }
                 }
             }
         }
