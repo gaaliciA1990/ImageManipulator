@@ -18,4 +18,7 @@ object ConstantAPI {
     const val API_THUMBNAIL = "thumbnail"
     const val API_FLIP = "flip"
     const val API_COMBO = "combination"
+
+    const val INVALID_IMAGE = "Invalid image uploaded or null image found"
+    const val INVALID_PARAM = "Invalid Command: Please verify your %s parameter is correct (param name and value)"
 }
