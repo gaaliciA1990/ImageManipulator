@@ -14,6 +14,11 @@ kotlin {
     jvmToolchain(17)
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
 
 group = "com.img_processor"
 version = "0.0.1"
@@ -33,7 +38,6 @@ dependencies {
     implementation("io.ktor:ktor-server-netty")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
     implementation("ch.qos.logback:logback-classic:$logback_version")
-    // potentially delete
     implementation("com.sksamuel.scrimage:scrimage-core:4.0.24")
     implementation("com.sksamuel.scrimage:scrimage-filters:4.0.24")
 
