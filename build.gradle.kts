@@ -7,6 +7,7 @@ plugins {
     kotlin("jvm") version "1.8.22"
     id("io.ktor.plugin") version "2.3.1"
     id("io.gitlab.arturbosch.detekt") version "1.23.0"
+    id("org.openjfx.javafxplugin") version "0.0.13"
     jacoco
 }
 
@@ -20,11 +21,15 @@ java {
     }
 }
 
+javafx {
+    version = "17"
+}
+
 group = "com.img_processor"
 version = "0.0.1"
 
 application {
-    mainClass.set("com.img_processor.ApplicationKt")
+    mainClass.set("com.imageprocessor.ApplicationKt")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=true") // enables dev mode
 
 }
