@@ -8,7 +8,6 @@ import kotlin.test.assertTrue
 
 class SketchBlurTest : SketchTestBase() {
 
-    //TODO: FIX THE TESTS FOR THE OUTPUT PATH AND SOURCE PATH
     @Test
     fun `Test blur entire image`(): Unit = runBlocking {
         val orig = SketchIO.load(sourceImagePath)

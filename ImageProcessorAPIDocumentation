@@ -10,7 +10,7 @@ paths:
       summary: 'Returns an image that will be manipulated based on the parameters that you enter.'
       operationId: combinationImage
       requestBody:
-          description: Upload an Image to be manipulated
+          description: Upload an Image to be processed
           required: true
           content:
             image/*:
@@ -50,7 +50,7 @@ paths:
       summary: 'Returns an image rotated by degrees when called'
       operationId: rotateImage
       requestBody:
-          description: 'Upload an Image to be manipulated'
+          description: 'Upload an Image to be processed'
           required: true
           content:
             image/*:
@@ -88,7 +88,7 @@ paths:
       summary: 'Returns a grayscale filtered image when called'
       operationId: roate90Image
       requestBody:
-          description: 'Upload an Image to be manipulated'
+          description: 'Upload an Image to be processed'
           required: true
           content:
             image/*:
@@ -127,7 +127,7 @@ paths:
       summary: 'Returns a grayscale filtered image when called.'
       operationId: grayscaleImage
       requestBody:
-          description: 'Upload an Image to be manipulated'
+          description: 'Upload an Image to be processed'
           required: true
           content:
             image/*:
@@ -159,7 +159,7 @@ paths:
       BadRequest is returned if both are missing'
       operationId: resizeImage
       requestBody:
-          description: 'Upload an Image to be manipulated'
+          description: 'Upload an Image to be processed'
           required: true
           content:
             image/*:
@@ -203,7 +203,7 @@ paths:
       summary: 'Returns a thumbnail sized image when called of size 160x108 pixels.'
       operationId: thumbnailImage
       requestBody:
-          description: 'Upload an Image to be manipulated'
+          description: 'Upload an Image to be processed'
           required: true
           content:
             image/*:
@@ -234,7 +234,7 @@ paths:
       summary: 'Returns an image flipped either horizontally or vertically'
       operationId: flipImage
       requestBody:
-          description: 'Upload an Image to be manipulated'
+          description: 'Upload an Image to be processed'
           required: true
           content:
             image/*:
