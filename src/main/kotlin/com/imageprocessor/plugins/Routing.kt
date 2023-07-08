@@ -1,7 +1,6 @@
 package com.imageprocessor.plugins
 
 import ConstantAPI
-import ConstantAPI.INVALID_IMAGE
 import ConstantAPI.INVALID_PARAM
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
