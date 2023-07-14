@@ -1,8 +1,3 @@
-# Project Build Status
-[![Gradle Build](https://github.com/gaaliciA1990/ImageManipulator/blob/main/.github/workflows/build.yml/badge.svg)](https://github.com/gaaliciA1990/ImageManipulator/blob/main/.github/workflows/build.yml)
-
-[![Code Coverage](https://github.com/gaaliciA1990/ImageManipulator/blob/main/.github/badges/jacoco.svg)](https://github.com/gaaliciA1990/ImageManipulator/blob/main/.github/workflows/jacoco.yml)
-
 # Image Processor
 
 A simple Image Processor API that accepts a byte array image and can process the image as follows: 
