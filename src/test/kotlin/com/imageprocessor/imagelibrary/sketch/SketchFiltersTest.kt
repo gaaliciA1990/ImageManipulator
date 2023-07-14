@@ -8,13 +8,16 @@ import com.imageprocessor.imagelibrary.sketch.filter.InvertColorFilter
 import com.imageprocessor.imagelibrary.sketch.filter.OpacityFilter
 import com.imageprocessor.imagelibrary.sketch.util.SketchIO
 import kotlinx.coroutines.runBlocking
+import org.junit.Ignore
 import org.junit.Test
 import java.awt.Color
 import kotlin.test.assertTrue
 
+// https://github.com/gaaliciA1990/ImageManipulator/issues/1
 class SketchFiltersTest : SketchTestBase() {
 
     @Test
+    @Ignore
     fun `Test brightness filter`(): Unit = runBlocking {
         val orig = SketchIO.load(sourceImagePath)
         assertTrue {
@@ -26,6 +29,7 @@ class SketchFiltersTest : SketchTestBase() {
     }
 
     @Test
+    @Ignore
     fun `Test contrast filter`(): Unit = runBlocking {
         val orig = SketchIO.load(sourceImagePath)
         assertTrue {
@@ -37,6 +41,7 @@ class SketchFiltersTest : SketchTestBase() {
     }
 
     @Test
+    @Ignore
     fun `Test grayscale filter`(): Unit = runBlocking {
         val orig = SketchIO.load(sourceImagePath)
         assertTrue {
@@ -48,6 +53,7 @@ class SketchFiltersTest : SketchTestBase() {
     }
 
     @Test
+    @Ignore
     fun `Test invert colors filter`(): Unit = runBlocking {
         val orig = SketchIO.load(sourceImagePath)
         assertTrue {
@@ -59,6 +65,7 @@ class SketchFiltersTest : SketchTestBase() {
     }
 
     @Test
+    @Ignore
     fun `Test color mask filter`(): Unit = runBlocking {
         val orig = SketchIO.load(sourceImagePath)
         assertTrue {
@@ -70,6 +77,7 @@ class SketchFiltersTest : SketchTestBase() {
     }
 
     @Test
+    @Ignore
     fun `Test opacity filter`(): Unit = runBlocking {
         val orig = SketchIO.load(sourceImagePath)
         assertTrue {

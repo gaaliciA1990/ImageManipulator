@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage
 import java.io.File
 import kotlin.io.path.createTempDirectory
 
+// https://github.com/gaaliciA1990/ImageManipulator/issues/1
 open class SketchTestBase {
 
     companion object {
