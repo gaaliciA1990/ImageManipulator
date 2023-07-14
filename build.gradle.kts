@@ -59,6 +59,21 @@ detekt {
     autoCorrect = true
 }
 
+tasks.test {
+    filter {
+        //include specific method in any of the tests
+        //includeTestsMatching("*UiCheck")
+
+        //include/exclude all tests from package
+        //https://github.com/gaaliciA1990/ImageManipulator/issues/1
+        excludeTestsMatching("com.imageprocessor.imagelibrary.sketch.*")
+
+        //include all integration tests
+        //includeTestsMatching("*IntegTest")
+    }
+}
+
+
 tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
     // include("**/special/package/**") // only analyze a sub package inside src/main/kotlin
     exclude("**/com/imageprocessor/imagelibrary/**") // but exclude the library for Sketch package
