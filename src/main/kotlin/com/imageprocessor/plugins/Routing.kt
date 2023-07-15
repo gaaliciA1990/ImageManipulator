@@ -12,6 +12,7 @@ import io.ktor.server.response.respondText
 import io.ktor.server.routing.post
 import io.ktor.server.routing.route
 import io.ktor.server.routing.routing
+import io.ktor.util.toByteArray
 
 /**
  * Function for mapping the routing for the API
@@ -181,17 +182,10 @@ fun Application.configureRouting() {
     }
 }
 
+/**
+ * Convert the image uploaded to a bytearray.
+ */
 suspend fun getByteArray(call: ApplicationCall): ByteArray {
     // channel to read the image bytes from
-    val image = call.receiveChannel()
-
-    // create an array of byes
-    var byteArray = byteArrayOf()
-
-    // populate the byte array with data from the image file
-    while (!image.isClosedForRead) {
-        byteArray += image.readByte()
-    }
-
-    return byteArray
+    return call.receiveChannel().toByteArray()
 }
