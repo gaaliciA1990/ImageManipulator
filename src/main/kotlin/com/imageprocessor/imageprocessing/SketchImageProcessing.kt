@@ -24,7 +24,7 @@ class SketchImageProcessing(val image: ByteArray) {
     companion object {
         // values for rotations 90 degrees
         const val RIGHT = 90
-        const val LEFT = -90
+        const val LEFT = 270
     }
 
     /**
